@@ -2,9 +2,9 @@ classdef DualE
 
     properties
 
-        f % Valor función
-        d % Valor primera derivada
-        dd % Valor segunda derivada
+        f % Function value
+        d % First derivative
+        dd % Second derivative
 
     end
 
@@ -14,22 +14,22 @@ classdef DualE
 
         function y = DualE(a, b, c)
 
-            if nargin == 0 % Número dual extendido cero
+            if nargin == 0 % Zero dual number 
                 y.f = 0;
                 y.d = 0;
                 y.dd = 0;
-            elseif nargin == 1 % Número dual extendido constante
+            elseif nargin == 1 % Constant dual number
                 y.f = a;
                 y.d = 0;
                 y.dd = 0;
-            elseif nargin == 2 % Número dual extendido relacionado con la variable independiente
+            elseif nargin == 2 % Extended dual number associated with the independent variable
                 
                 if abs(b - 1) < 2*eps('double')
                     y.f = a;
                     y.d = 1;
                     y.dd = 0;
                 else
-                    error('DualE: parámetros incorrectos')
+                    error('DualE: wrong parameters')
                 end
 
             else
@@ -40,7 +40,7 @@ classdef DualE
 
         end
 
-        %% SUMA
+        %% SUM
 
         function y = plus(u, v)
 
@@ -57,14 +57,14 @@ classdef DualE
                 D = v.d;
                 DD = v.dd;
             else
-                error('NDual:plus:tipos no definidos')
+                error('NDual:plus:undefined types')
             end
 
             y = DualE(F, D, DD);
 
         end
 
-        %% RESTA
+        %% SUBTRACT
 
         function y = minus(u, v)
 
@@ -81,14 +81,14 @@ classdef DualE
                 D = -v.d;
                 DD = -v.dd;
             else
-                error('NDual:minus:tipos no definidos')
+                error('NDual:minus:undefined types')
             end
 
             y = DualE(F, D, DD);
 
         end
 
-        %% MULTIPLICACIÓN
+        %% MULTIPLICATION
 
         function y = mtimes(u, v)
 
@@ -105,14 +105,14 @@ classdef DualE
                 D = u*v.d;
                 DD = u*v.dd;
             else
-                error('DualE:mtimes:tipos no definidos')
+                error('DualE:mtimes:undefined types')
             end
 
             y = DualE(F, D, DD);
 
         end
 
-        %% División
+        %% Rational function
 
         function y = mrdivide(u, v)
 
@@ -129,14 +129,14 @@ classdef DualE
                 D = - u * v.d / v.f^2;
                 DD = (- u * v.dd * v.f^2 + u * v.d * 2 * v.f * v.d) / v.f^4;
             else
-                error('DualE:rdivide:Tipos no definidos')
+                error('DualE:rdivide:undefined types')
             end
 
             y = DualE(F, D, DD);
             
         end
 
-        %% Cambio de signo
+        %% Minus sing
 
         function y = uminus(u)
 
@@ -144,7 +144,7 @@ classdef DualE
 
         end
 
-        %% Potenciación
+        %% Power function
 
         function y = mpower(u, v) %u^v
 
@@ -154,21 +154,21 @@ classdef DualE
                 DD = NaN;
             elseif isa(u, 'DualE') && isa(v, 'double')
                 F = u.f^v;
-                D = v*u.f^(v-1)*u.d; % Regla de la cadena
-                DD = v*(((v-1)*u.f^(v-2)*u.d)*u.d + u.f^(v-1)*u.dd); % Regla de la cadena
+                D = v*u.f^(v-1)*u.d; % Chain rule
+                DD = v*(((v-1)*u.f^(v-2)*u.d)*u.d + u.f^(v-1)*u.dd); % Chain rule
             elseif isa(u, 'double') && isa(v, 'DualE')
                 F = NaN;
                 D = NaN;
                 DD = NaN;
             else
-                error('DualE:mpower:tipos no definidos')
+                error('DualE:mpower:undefined types')
             end
 
             y = DualE(F, D, DD);
         
         end
 
-        %% Radicación
+        %% Square root
 
          function y = sqrt(u)
 
@@ -180,7 +180,7 @@ classdef DualE
 
          end
 
-         %% Función exponencial
+         %% Exponential function
 
          function y = exp(u)
 
@@ -192,13 +192,13 @@ classdef DualE
 
          end
 
-        %% Funciones trigonométricas
+        %% Trigonometric Functions
 
         function y = sin(u)
 
             F = sin(u.f);
-            D = cos(u.f)*u.d; % Regla de la cadena
-            DD = (-sin(u.f)*u.d)*u.d + cos(u.f)*u.dd; % Regla de la cadena
+            D = cos(u.f)*u.d; % Chain rule
+            DD = (-sin(u.f)*u.d)*u.d + cos(u.f)*u.dd; % Chain rule
             
             y = DualE(F, D, DD);
             
@@ -207,8 +207,8 @@ classdef DualE
         function y = cos(u)
 
             F = cos(u.f);
-            D = -sin(u.f)*u.d; % Regla de la cadena
-            DD = -(u.dd*sin(u.f) + u.d^2*cos(u.f)); % Regla de la cadena
+            D = -sin(u.f)*u.d; % Chain rule
+            DD = -(u.dd*sin(u.f) + u.d^2*cos(u.f)); % Chain rule
             
             y = DualE(F, D, DD);
             
