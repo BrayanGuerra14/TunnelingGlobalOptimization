@@ -2,8 +2,8 @@ classdef DualN
 
     properties
 
-        f % Valor de la función
-        d % Valor de la derivada
+        f % Function value
+        d % First derivative
 
     end
 
@@ -13,10 +13,10 @@ classdef DualN
 
         function y = DualN(a, b)
 
-            if nargin == 0 % Número dual 0
+            if nargin == 0 % Zero dual number
                 y.f = 0;
                 y.d = 0;
-            elseif nargin == 1 % Número dual constante
+            elseif nargin == 1 % Constant dual number
                 y.f = a;
                 y.d = 0;
             else
@@ -26,7 +26,7 @@ classdef DualN
 
         end
 
-        %% CastDualN a Vector (to vector, 2 vector)
+        %% CastDualN to Vector (to vector, 2 vector)
 
         function y = DN2V(u)
             
@@ -36,7 +36,7 @@ classdef DualN
 
         end
 
-        %% Suma
+        %% SUM
 
         function y = plus(u, v)
 
@@ -57,7 +57,7 @@ classdef DualN
 
         end
 
-        %% Resta
+        %% SUBSTRACT
 
         function y = minus(u, v)
 
@@ -78,7 +78,7 @@ classdef DualN
 
         end
 
-        %% Multiplicación
+        %% MULTIPLICATION
 
         function y = mtimes(u, v)
 
@@ -99,7 +99,7 @@ classdef DualN
 
         end
 
-        %% División
+        %% Rational function
 
         function y = mrdivide(u, v)
 
@@ -120,7 +120,7 @@ classdef DualN
 
         end
         
-        %% Cambio de signo (operador unario que cambia de signo)
+        %% Minus sing
         
         function y = uminus(u)
 
@@ -128,7 +128,7 @@ classdef DualN
 
         end
 
-        %% Potenciación
+        %% Power function
 
         function y = mpower(u, v)
 
@@ -149,7 +149,7 @@ classdef DualN
 
         end
 
-        %% Radicación
+        %% Square root
 
         function y = sqrt(u)
 
@@ -159,7 +159,7 @@ classdef DualN
 
         end
 
-        %% Función exponencial
+        %% Exponential function
 
         function y = exp(u)
 
@@ -170,8 +170,8 @@ classdef DualN
 
         end
 
-        %% Funciones trigonométricas
-
+        %% Trigonometric Functions
+        
         function y = sin(u)
 
             F = sin(u.f);
@@ -193,6 +193,3 @@ classdef DualN
     end
 
 end
-
-
-%% Revisar Peñuñuri y Neidinger
