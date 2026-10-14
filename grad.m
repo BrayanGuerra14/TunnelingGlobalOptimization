@@ -1,5 +1,5 @@
 % Parameters
-% fn : handler o function
+% fn : handler or function
 % x0 : coordinates
 % Result
 % g := grad vector
