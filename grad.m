@@ -1,17 +1,17 @@
-% Parámetros
-% fn : handler o función
-% x0 : coordenadas
-% Resultado
-% g := vector gradiente
+% Parameters
+% fn : handler o function
+% x0 : coordinates
+% Result
+% g := grad vector
 function [g, v] = grad(fn , x0)
 
-dim = length(x0); % Número de dimensiones
+dim = length(x0); % dim
 
 g = zeros(1, dim);
 
-for i = 1:dim % Para cada dimensión calcular la derivada
+for i = 1:dim % For each dimension, calculate the derivative
 
-    % Vector de números duales
+    % Dual Number Vector
 
     x = cell(1, dim);
 
@@ -29,7 +29,7 @@ for i = 1:dim % Para cada dimensión calcular la derivada
 
     end
 
-    f = fn(x); % Número dual, f.f valor de la función, f.d valor de la derivada
+    f = fn(x); % Dual number, f.f. value of the function, f.d. value of the derivative
     g(i) = f.d;
 
 end
